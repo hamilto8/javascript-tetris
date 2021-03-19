@@ -1,4 +1,5 @@
 import gameBoard from './gameBoard';
+import scoreBoard from './score';
 
 const contentDiv = document.querySelector('#content');
 const title = document.createElement('h1');
@@ -10,6 +11,7 @@ const footer = document.createElement('footer');
     footer.classList.add('footer');
 
 contentDiv.appendChild(title);
+contentDiv.appendChild(scoreBoard());
 contentDiv.appendChild(gameBoard());
 
 contentDiv.appendChild(footer);
