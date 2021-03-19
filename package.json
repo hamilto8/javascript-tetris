@@ -1,0 +1,25 @@
+{
+  "name": "javascript-tetris",
+  "version": "1.0.0",
+  "description": "A simple Tetris clone made with HTML, CSS and JavaScript",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hamilto8/javascript-tetris.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hamilto8/javascript-tetris/issues"
+  },
+  "homepage": "https://github.com/hamilto8/javascript-tetris#readme",
+  "devDependencies": {
+    "webpack": "^5.26.3",
+    "webpack-cli": "^4.5.0"
+  }
+}
