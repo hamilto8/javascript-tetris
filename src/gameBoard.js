@@ -1,4 +1,7 @@
+import boardArr from './gameBoardArr';
+
 function gameBoard(){
+
     const innerBoard = document.createElement('div');
         innerBoard.classList.add('game-board');
 
@@ -6,7 +9,7 @@ function gameBoard(){
         outerBoard.classList.add('outer-board');
 
         outerBoard.appendChild(innerBoard);
-
+    
     return outerBoard;
 }
 
