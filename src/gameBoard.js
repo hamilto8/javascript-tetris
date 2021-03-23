@@ -1,5 +1,4 @@
 import boardArr from './gameBoardArr';
-import clickBox from './gameLogic';
 
 function gameBoard(){
 
@@ -10,7 +9,6 @@ function gameBoard(){
         const squareDiv = document.createElement('div');
             squareDiv.dataset.index = idx;
             squareDiv.classList.add('board-square-div');
-            squareDiv.addEventListener('click', clickBox);
         innerBoard.appendChild(squareDiv);
     });
 

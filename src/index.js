@@ -1,5 +1,7 @@
 import gameBoard from './gameBoard';
 import scoreBoard from './score';
+import changeSquare from './gameLogic';
+import startBtn from './startBtn';
 
 const contentDiv = document.querySelector('#content');
 const title = document.createElement('h1');
@@ -11,7 +13,9 @@ const footer = document.createElement('footer');
     footer.classList.add('footer');
 
 contentDiv.appendChild(title);
+contentDiv.appendChild(startBtn());
 contentDiv.appendChild(scoreBoard());
 contentDiv.appendChild(gameBoard());
-
 contentDiv.appendChild(footer);
+
+// document.onload = changeSquare();
