@@ -36,7 +36,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _gameBoardArr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameBoardArr */ \"./src/gameBoardArr.js\");\n/* harmony import */ var _gamePieceL__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gamePieceL */ \"./src/gamePieceL.js\");\n\r\n\r\n\r\nfunction changeSquare(){\r\n    const squaresDivArr = Array.from(document.querySelectorAll('.board-square-div'));\r\n    let currentPieceIdx = [1, 11, 21];\r\n    squaresDivArr[1].style.backgroundColor = 'red';\r\n    squaresDivArr[11].style.backgroundColor = 'red';\r\n    squaresDivArr[21].style.backgroundColor = 'red';\r\n    if(!(currentPieceIdx[3]+10 > squaresDivArr.length)){\r\n        while(!(currentPieceIdx[3]+10 > squaresDivArr.length)){\r\n            currentPieceIdx.forEach((num,idx)=>{\r\n                num += 10\r\n                currentPieceIdx[idx] = num;\r\n            });\r\n    \r\n            setTimeout(() => {\r\n                squaresDivArr[1].style.backgroundColor = '#fff';\r\n                currentPieceIdx.forEach((num)=>{\r\n                    squaresDivArr[num].style.backgroundColor = 'red';\r\n                })\r\n            }, 1000);\r\n        }\r\n    }\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (changeSquare);\n\n//# sourceURL=webpack://javascript-tetris/./src/gameLogic.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _gameBoardArr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameBoardArr */ \"./src/gameBoardArr.js\");\n/* harmony import */ var _gamePieceL__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gamePieceL */ \"./src/gamePieceL.js\");\n/* harmony import */ var _gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./gamePieceIdx */ \"./src/gamePieceIdx.js\");\n\r\n\r\n\r\n\r\nfunction changeSquare(){\r\n    const squaresDivArr = Array.from(document.querySelectorAll('.board-square-div'));\r\n    \r\n    _gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__.currentPieceIdx.forEach((idx)=>{\r\n        squaresDivArr[idx].style.backgroundColor = 'red';\r\n    });\r\n    // squaresDivArr[1].style.backgroundColor = 'red';\r\n    // squaresDivArr[11].style.backgroundColor = 'red';\r\n    // squaresDivArr[21].style.backgroundColor = 'red';\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (changeSquare);\n\n//# sourceURL=webpack://javascript-tetris/./src/gameLogic.js?");
 
 /***/ }),
 
@@ -47,6 +47,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nclass gamePiece{\r\n    constructor(shape){\r\n        this.shape = shape;\r\n    }\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (gamePiece);\n\n//# sourceURL=webpack://javascript-tetris/./src/gamePiece.js?");
+
+/***/ }),
+
+/***/ "./src/gamePieceIdx.js":
+/*!*****************************!*\
+  !*** ./src/gamePieceIdx.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"currentPieceIdx\": () => (/* binding */ currentPieceIdx),\n/* harmony export */   \"previousPieceIdx\": () => (/* binding */ previousPieceIdx)\n/* harmony export */ });\nlet currentPieceIdx = [1, 11, 21];\r\nlet previousPieceIdx = [];\r\n\r\n\n\n//# sourceURL=webpack://javascript-tetris/./src/gamePieceIdx.js?");
 
 /***/ }),
 
@@ -67,6 +77,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameBoard */ \"./src/gameBoard.js\");\n/* harmony import */ var _score__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./score */ \"./src/score.js\");\n/* harmony import */ var _gameLogic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./gameLogic */ \"./src/gameLogic.js\");\n/* harmony import */ var _startBtn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./startBtn */ \"./src/startBtn.js\");\n\r\n\r\n\r\n\r\n\r\nconst contentDiv = document.querySelector('#content');\r\nconst title = document.createElement('h1');\r\n    title.innerText = 'JavaScript Tetris';\r\n    title.classList.add('title');\r\n\r\nconst footer = document.createElement('footer');\r\n    footer.innerText = 'Michael Hamilton 2021';\r\n    footer.classList.add('footer');\r\n\r\ncontentDiv.appendChild(title);\r\ncontentDiv.appendChild((0,_startBtn__WEBPACK_IMPORTED_MODULE_3__.default)());\r\ncontentDiv.appendChild((0,_score__WEBPACK_IMPORTED_MODULE_1__.default)());\r\ncontentDiv.appendChild((0,_gameBoard__WEBPACK_IMPORTED_MODULE_0__.default)());\r\ncontentDiv.appendChild(footer);\r\n\r\n// document.onload = changeSquare();\n\n//# sourceURL=webpack://javascript-tetris/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/pieceFallingInterval.js":
+/*!*************************************!*\
+  !*** ./src/pieceFallingInterval.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _gameLogic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameLogic */ \"./src/gameLogic.js\");\n/* harmony import */ var _gameBoardArr__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameBoardArr */ \"./src/gameBoardArr.js\");\n/* harmony import */ var _gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./gamePieceIdx */ \"./src/gamePieceIdx.js\");\n\r\n\r\n\r\n\r\nconst pieceFallingInterval = () => {\r\n    (0,_gameLogic__WEBPACK_IMPORTED_MODULE_0__.default)();\r\n    setInterval(() => {\r\n        if(_gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__.currentPieceIdx[2]+10 < _gameBoardArr__WEBPACK_IMPORTED_MODULE_1__.default.length){\r\n            for(let i = 0; i < _gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__.currentPieceIdx.length; i++){\r\n                _gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__.currentPieceIdx[i] = _gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__.currentPieceIdx[i]+10;\r\n            }\r\n            (0,_gameLogic__WEBPACK_IMPORTED_MODULE_0__.default)();\r\n        } else {\r\n            alert('end');\r\n            console.log('end reached');\r\n        }\r\n    }, 1000);\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (pieceFallingInterval);\n\n//# sourceURL=webpack://javascript-tetris/./src/pieceFallingInterval.js?");
 
 /***/ }),
 
@@ -96,7 +116,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _gameLogic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameLogic */ \"./src/gameLogic.js\");\n\r\n\r\nconst startBtn = () =>{\r\n    const start = document.createElement('button');\r\n        start.innerText = 'Start';\r\n        start.classList.add('start-btn');\r\n        start.addEventListener('click', _gameLogic__WEBPACK_IMPORTED_MODULE_0__.default);\r\n    \r\n    return start;\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (startBtn);\n\n//# sourceURL=webpack://javascript-tetris/./src/startBtn.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _gameLogic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameLogic */ \"./src/gameLogic.js\");\n/* harmony import */ var _pieceFallingInterval__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pieceFallingInterval */ \"./src/pieceFallingInterval.js\");\n\r\n\r\n\r\nconst startBtn = () =>{\r\n    const start = document.createElement('button');\r\n        start.innerText = 'Start';\r\n        start.classList.add('start-btn');\r\n        start.addEventListener('click', _pieceFallingInterval__WEBPACK_IMPORTED_MODULE_1__.default);\r\n    \r\n    return start;\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (startBtn);\n\n//# sourceURL=webpack://javascript-tetris/./src/startBtn.js?");
 
 /***/ })
 
