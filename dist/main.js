@@ -80,13 +80,23 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _gam
 
 /***/ }),
 
+/***/ "./src/makeBlank.js":
+/*!**************************!*\
+  !*** ./src/makeBlank.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst makeBlank = (idx) => {\r\n    const squareArray = Array.from(document.querySelectorAll('.board-square-div'));\r\n    squareArray.forEach((div)=>{\r\n        if(parseInt(div.dataset.index) === idx){\r\n            div.style.backgroundColor = '#fff';\r\n        }\r\n    });\r\n    console.log(idx);\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (makeBlank);\n\n//# sourceURL=webpack://javascript-tetris/./src/makeBlank.js?");
+
+/***/ }),
+
 /***/ "./src/pieceFallingInterval.js":
 /*!*************************************!*\
   !*** ./src/pieceFallingInterval.js ***!
   \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _gameLogic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameLogic */ \"./src/gameLogic.js\");\n/* harmony import */ var _gameBoardArr__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameBoardArr */ \"./src/gameBoardArr.js\");\n/* harmony import */ var _gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./gamePieceIdx */ \"./src/gamePieceIdx.js\");\n\r\n\r\n\r\n\r\nconst pieceFallingInterval = () => {\r\n    (0,_gameLogic__WEBPACK_IMPORTED_MODULE_0__.default)();\r\n    setInterval(() => {\r\n        if(_gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__.currentPieceIdx[2]+10 < _gameBoardArr__WEBPACK_IMPORTED_MODULE_1__.default.length){\r\n            for(let i = 0; i < _gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__.currentPieceIdx.length; i++){\r\n                _gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__.currentPieceIdx[i] = _gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__.currentPieceIdx[i]+10;\r\n            }\r\n            (0,_gameLogic__WEBPACK_IMPORTED_MODULE_0__.default)();\r\n        } else {\r\n            alert('end');\r\n            console.log('end reached');\r\n        }\r\n    }, 1000);\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (pieceFallingInterval);\n\n//# sourceURL=webpack://javascript-tetris/./src/pieceFallingInterval.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _gameLogic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameLogic */ \"./src/gameLogic.js\");\n/* harmony import */ var _gameBoardArr__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameBoardArr */ \"./src/gameBoardArr.js\");\n/* harmony import */ var _gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./gamePieceIdx */ \"./src/gamePieceIdx.js\");\n/* harmony import */ var _makeBlank__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./makeBlank */ \"./src/makeBlank.js\");\n\r\n\r\n\r\n\r\n\r\nconst pieceFallingInterval = () => {\r\n    (0,_gameLogic__WEBPACK_IMPORTED_MODULE_0__.default)();\r\n    setInterval(() => {\r\n        if(_gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__.currentPieceIdx[2]+10 < _gameBoardArr__WEBPACK_IMPORTED_MODULE_1__.default.length){\r\n            (0,_makeBlank__WEBPACK_IMPORTED_MODULE_3__.default)(_gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__.currentPieceIdx[0]);\r\n            for(let i = 0; i < _gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__.currentPieceIdx.length; i++){\r\n\r\n                _gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__.currentPieceIdx[i] = _gamePieceIdx__WEBPACK_IMPORTED_MODULE_2__.currentPieceIdx[i]+10;\r\n            }\r\n            (0,_gameLogic__WEBPACK_IMPORTED_MODULE_0__.default)();\r\n        } else {\r\n            alert('end');\r\n            console.log('end reached');\r\n            stopTimer();\r\n        }\r\n    }, 1000);\r\n}\r\n\r\nconst stopTimer = () => {\r\n    clearInterval(pieceFallingInterval);\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (pieceFallingInterval);\n\n//# sourceURL=webpack://javascript-tetris/./src/pieceFallingInterval.js?");
 
 /***/ }),
 
