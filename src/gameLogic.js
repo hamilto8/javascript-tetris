@@ -5,12 +5,12 @@ import {currentPieceIdx, previousPieceIdx} from './gamePieceIdx';
 function changeSquare(){
     const squaresDivArr = Array.from(document.querySelectorAll('.board-square-div'));
     
-    currentPieceIdx.forEach((idx)=>{
+    currentPieceIdx["I"].forEach((idx)=>{
+        const boardIdx = parseInt(squaresDivArr[idx].dataset.index);
         squaresDivArr[idx].style.backgroundColor = 'red';
+        squaresDivArr[idx].classList.add('taken');
+        boardArr[boardIdx] = 'x';
     });
-    // squaresDivArr[1].style.backgroundColor = 'red';
-    // squaresDivArr[11].style.backgroundColor = 'red';
-    // squaresDivArr[21].style.backgroundColor = 'red';
 }
 
 export default changeSquare
