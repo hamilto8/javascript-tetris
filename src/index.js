@@ -17,5 +17,3 @@ contentDiv.appendChild(startBtn());
 contentDiv.appendChild(scoreBoard());
 contentDiv.appendChild(gameBoard());
 contentDiv.appendChild(footer);
-
-// document.onload = changeSquare();
