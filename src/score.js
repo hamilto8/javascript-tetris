@@ -1,4 +1,4 @@
-import scoreNum from './scoreTracker';
+import {scoreNum} from './scoreTracker';
 
 function score(){
     const scoreBoard = document.createElement('h3');

@@ -1,3 +1,3 @@
 let scoreNum = 0;
 
-export default scoreNum
+export {scoreNum}
