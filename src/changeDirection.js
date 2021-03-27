@@ -1,12 +1,15 @@
 import changeSquare from './gameLogic';
 import {currentPieceIdx, previousPieceIdx} from './gamePieceIdx';
 import makeBlank from './makeBlank';
+import rotateTetrimino from './rotateTetrimino';
 
 const move = (e) => {
     if(e.key === "ArrowRight"){
         moveRight();
     } else if (e.key === "ArrowLeft"){
         moveLeft();
+    } else if (e.code === 'Space'){
+        rotateTetrimino();
     }
 }
 

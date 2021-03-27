@@ -10,7 +10,7 @@ const title = document.createElement('h1');
     title.classList.add('title');
 
 const footer = document.createElement('footer');
-    footer.innerText = 'Make the Blocks Go';
+    footer.innerHTML = `Use <i class="fas fa-arrow-left"></i> or <i class="fas fa-arrow-right"></i> to move. Space to rotate.`;
     footer.classList.add('footer');
 
 contentDiv.appendChild(title);
