@@ -10,13 +10,13 @@ const title = document.createElement('h1');
     title.classList.add('title');
 
 const footer = document.createElement('footer');
-    footer.innerText = 'Michael Hamilton 2021';
+    footer.innerText = 'Make the Blocks Go';
     footer.classList.add('footer');
 
 contentDiv.appendChild(title);
-contentDiv.appendChild(startBtn());
 contentDiv.appendChild(scoreBoard());
 contentDiv.appendChild(gameBoard());
+contentDiv.appendChild(startBtn());
 contentDiv.appendChild(footer);
 
 document.addEventListener('keydown', move);

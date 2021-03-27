@@ -3,7 +3,8 @@ html, body {
     padding: none;
     box-sizing: border-box;
     font-family: 'Abel', sans-serif;
-    background-color: rgb(250, 226, 255);
+    /* background-color: rgb(250, 226, 255); */
+    background-color: rgb(224, 224, 224);
 }
 
 .board-square-div{
@@ -22,7 +23,8 @@ html, body {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: rgb(251, 121, 255);
+    /* background-color: rgb(251, 121, 255); */
+    background-color: rgb(90, 90, 90);
     color: #fff;
     text-align: center;
     padding: 5px;
@@ -46,6 +48,16 @@ html, body {
 
 .score{ 
     font-family: 'Abel', sans-serif;
+    text-align: center;
+}
+
+.start-btn {
+    position: absolute;
+    margin-top: 10px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    left: 48%;
 }
 
 .title {
