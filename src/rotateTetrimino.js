@@ -1,5 +1,9 @@
+import {currentPieceIdx} from './gamePieceIdx';
+
 const rotateTetrimino = () => {
-    console.log("Rotating");
+    if(currentPieceIdx["I"]["POS"] === 1){
+        currentPieceIdx["I"]["POS"] = 2;
+    }
 }
 
 export default rotateTetrimino

@@ -15,21 +15,27 @@ const move = (e) => {
 
 const moveRight = () => {
     console.log('moving right');
-    let arr = currentPieceIdx["I"];
+    let arr;
+    if(currentPieceIdx["I"]["POS"] === 1){
+        arr= currentPieceIdx["I"]["POS1_IDX"];
+    } else if (currentPieceIdx["I"]["POS"] === 2){
+        arr = currentPieceIdx["I"]["POS2_IDX"];
+    }
+    // let arr = currentPieceIdx["I"]["POS1_IDX"];
 
     for(let i = 0; i < arr.length; i++){
         makeBlank(arr[i]);
-        currentPieceIdx["I"][i] = arr[i]+1;
+        currentPieceIdx["I"]["POS1_IDX"][i] = arr[i]+1;
     }
 }
 
 const moveLeft = () => {
     console.log('moving left');
-    let arr = currentPieceIdx["I"];
+    let arr = currentPieceIdx["I"]["POS1_IDX"];
 
     for(let i = 0; i < arr.length; i++){
         makeBlank(arr[i]);
-        currentPieceIdx["I"][i] = arr[i]-1;
+        currentPieceIdx["I"]["POS1_IDX"][i] = arr[i]-1;
     }
 }
 
