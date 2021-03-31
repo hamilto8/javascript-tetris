@@ -1,11 +1,13 @@
-import {scoreNum} from './scoreTracker';
+import {scoreNum, scoreSetter} from './scoreTracker';
 
-function score(){
+function displayScore(){
+    let scoreNumArr = scoreSetter.getScore;
+
     const scoreBoard = document.createElement('h3');
         scoreBoard.classList.add('score');
-        scoreBoard.innerText = `Total Score: ${scoreNum}`;
+        scoreBoard.innerText = `Total Score: ${scoreNumArr}`;
     
     return scoreBoard;
 }
 
-export default score;
+export default displayScore;

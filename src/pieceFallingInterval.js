@@ -2,7 +2,8 @@ import changeSquare from './gameLogic';
 import boardArr from './gameBoardArr'
 import {currentPieceIdx, previousPieceIdx} from './gamePieceIdx';
 import makeBlank from './makeBlank';
-import {scoreNum} from './scoreTracker';
+import {scoreNum, scoreSetter} from './scoreTracker';
+import displayScore from './score';
 
 let pieceFallingInterval;
 
@@ -21,7 +22,9 @@ const pieceFalling = () => {
             changeSquare();
         } else {
             const scoreBoard = document.querySelector('.score');
-            scoreBoard.innerText = `Total Score: 100`;
+            // scoreBoard.innerText = `Total Score: 100`;
+            scoreSetter.scoreNum += 100;
+            displayScore();
             console.log('end reached');
             // currentPiece = currentPieceIdx["L"];
             clearInterval(pieceFallingInterval);
