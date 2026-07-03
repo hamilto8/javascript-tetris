@@ -1,4 +1,4 @@
-import { COLS, ROWS } from './constants';
+import { COLS, ROWS } from "./constants";
 
 export class Board {
   constructor() {
@@ -14,7 +14,12 @@ export class Board {
   }
 
   // Check if a piece can move to a specific position/shape
-  isValidMove(piece, targetX = piece.x, targetY = piece.y, targetShape = piece.shape) {
+  isValidMove(
+    piece,
+    targetX = piece.x,
+    targetY = piece.y,
+    targetShape = piece.shape,
+  ) {
     for (let y = 0; y < targetShape.length; y++) {
       for (let x = 0; x < targetShape[y].length; x++) {
         if (targetShape[y][x] > 0) {
@@ -50,11 +55,18 @@ export class Board {
       { x: 2, y: 0 },
       { x: 0, y: -1 },
       { x: -1, y: -1 },
-      { x: 1, y: -1 }
+      { x: 1, y: -1 },
     ];
 
     for (const offset of offsets) {
-      if (this.isValidMove(clone, clone.x + offset.x, clone.y + offset.y, clone.shape)) {
+      if (
+        this.isValidMove(
+          clone,
+          clone.x + offset.x,
+          clone.y + offset.y,
+          clone.shape,
+        )
+      ) {
         piece.shape = clone.shape;
         piece.x += offset.x;
         piece.y += offset.y;
@@ -94,7 +106,7 @@ export class Board {
     const clearedRows = [];
 
     for (let y = ROWS - 1; y >= 0; y--) {
-      if (this.grid[y].every(cell => cell !== 0)) {
+      if (this.grid[y].every((cell) => cell !== 0)) {
         linesCleared++;
         clearedRows.push(y);
         this.grid.splice(y, 1);

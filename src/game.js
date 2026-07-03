@@ -1,6 +1,6 @@
-import { Board } from './board';
-import { Piece } from './piece';
-import { POINTS, SHAPES } from './constants';
+import { Board } from "./board";
+import { Piece } from "./piece";
+import { POINTS, SHAPES } from "./constants";
 
 export class Game {
   constructor(renderer, onStateChange) {
@@ -8,9 +8,12 @@ export class Game {
     this.onStateChange = onStateChange;
     this.board = new Board();
 
-    this.state = 'MENU'; // 'MENU', 'PLAYING', 'PAUSED', 'GAMEOVER'
+    this.state = "MENU"; // 'MENU', 'PLAYING', 'PAUSED', 'GAMEOVER'
     this.score = 0;
-    this.highScore = parseInt(localStorage.getItem('tetris_high_score') || '0', 10);
+    this.highScore = parseInt(
+      localStorage.getItem("tetris_high_score") || "0",
+      10,
+    );
     this.lines = 0;
     this.level = 1;
 
@@ -56,7 +59,7 @@ export class Game {
     this.activePiece = this.getRandomPiece();
     this.nextPiece = this.getRandomPiece();
 
-    this.state = 'PLAYING';
+    this.state = "PLAYING";
     this.notifyUI();
 
     this.lastTime = performance.now();
@@ -65,7 +68,7 @@ export class Game {
   }
 
   loop(timestamp = 0) {
-    if (this.state !== 'PLAYING') return;
+    if (this.state !== "PLAYING") return;
 
     const deltaTime = timestamp - this.lastTime;
     this.lastTime = timestamp;
@@ -75,32 +78,70 @@ export class Game {
       this.moveDown();
     }
 
-    this.renderer.render(this.board, this.activePiece, this.holdPiece, this.nextPiece);
+    this.renderer.render(
+      this.board,
+      this.activePiece,
+      this.holdPiece,
+      this.nextPiece,
+    );
     this.animationId = requestAnimationFrame(this.loop.bind(this));
   }
 
   moveLeft() {
-    if (this.state !== 'PLAYING' || !this.activePiece) return;
-    if (this.board.isValidMove(this.activePiece, this.activePiece.x - 1, this.activePiece.y)) {
+    if (this.state !== "PLAYING" || !this.activePiece) return;
+    if (
+      this.board.isValidMove(
+        this.activePiece,
+        this.activePiece.x - 1,
+        this.activePiece.y,
+      )
+    ) {
       this.activePiece.x--;
-      this.renderer.render(this.board, this.activePiece, this.holdPiece, this.nextPiece);
+      this.renderer.render(
+        this.board,
+        this.activePiece,
+        this.holdPiece,
+        this.nextPiece,
+      );
     }
   }
 
   moveRight() {
-    if (this.state !== 'PLAYING' || !this.activePiece) return;
-    if (this.board.isValidMove(this.activePiece, this.activePiece.x + 1, this.activePiece.y)) {
+    if (this.state !== "PLAYING" || !this.activePiece) return;
+    if (
+      this.board.isValidMove(
+        this.activePiece,
+        this.activePiece.x + 1,
+        this.activePiece.y,
+      )
+    ) {
       this.activePiece.x++;
-      this.renderer.render(this.board, this.activePiece, this.holdPiece, this.nextPiece);
+      this.renderer.render(
+        this.board,
+        this.activePiece,
+        this.holdPiece,
+        this.nextPiece,
+      );
     }
   }
 
   moveDown() {
-    if (this.state !== 'PLAYING' || !this.activePiece) return false;
-    if (this.board.isValidMove(this.activePiece, this.activePiece.x, this.activePiece.y + 1)) {
+    if (this.state !== "PLAYING" || !this.activePiece) return false;
+    if (
+      this.board.isValidMove(
+        this.activePiece,
+        this.activePiece.x,
+        this.activePiece.y + 1,
+      )
+    ) {
       this.activePiece.y++;
       this.dropCounter = 0;
-      this.renderer.render(this.board, this.activePiece, this.holdPiece, this.nextPiece);
+      this.renderer.render(
+        this.board,
+        this.activePiece,
+        this.holdPiece,
+        this.nextPiece,
+      );
       return true;
     } else {
       this.lockPiece();
@@ -116,9 +157,15 @@ export class Game {
   }
 
   hardDrop() {
-    if (this.state !== 'PLAYING' || !this.activePiece) return;
+    if (this.state !== "PLAYING" || !this.activePiece) return;
     let dropDistance = 0;
-    while (this.board.isValidMove(this.activePiece, this.activePiece.x, this.activePiece.y + 1)) {
+    while (
+      this.board.isValidMove(
+        this.activePiece,
+        this.activePiece.x,
+        this.activePiece.y + 1,
+      )
+    ) {
       this.activePiece.y++;
       dropDistance++;
     }
@@ -127,14 +174,19 @@ export class Game {
   }
 
   rotate(dir = 1) {
-    if (this.state !== 'PLAYING' || !this.activePiece) return;
+    if (this.state !== "PLAYING" || !this.activePiece) return;
     if (this.board.rotatePiece(this.activePiece, dir)) {
-      this.renderer.render(this.board, this.activePiece, this.holdPiece, this.nextPiece);
+      this.renderer.render(
+        this.board,
+        this.activePiece,
+        this.holdPiece,
+        this.nextPiece,
+      );
     }
   }
 
   hold() {
-    if (this.state !== 'PLAYING' || !this.canHold || !this.activePiece) return;
+    if (this.state !== "PLAYING" || !this.canHold || !this.activePiece) return;
     const currentType = this.activePiece.type;
 
     if (this.holdPiece === null) {
@@ -150,7 +202,12 @@ export class Game {
     this.canHold = false;
     this.dropCounter = 0;
     this.notifyUI();
-    this.renderer.render(this.board, this.activePiece, this.holdPiece, this.nextPiece);
+    this.renderer.render(
+      this.board,
+      this.activePiece,
+      this.holdPiece,
+      this.nextPiece,
+    );
   }
 
   lockPiece() {
@@ -159,7 +216,13 @@ export class Game {
 
     if (linesCleared > 0) {
       this.lines += linesCleared;
-      const pointsMap = [0, POINTS.SINGLE, POINTS.DOUBLE, POINTS.TRIPLE, POINTS.TETRIS];
+      const pointsMap = [
+        0,
+        POINTS.SINGLE,
+        POINTS.DOUBLE,
+        POINTS.TRIPLE,
+        POINTS.TETRIS,
+      ];
       this.score += (pointsMap[linesCleared] || 0) * this.level;
 
       // Level up every 10 lines
@@ -172,7 +235,7 @@ export class Game {
 
     if (this.score > this.highScore) {
       this.highScore = this.score;
-      localStorage.setItem('tetris_high_score', this.highScore.toString());
+      localStorage.setItem("tetris_high_score", this.highScore.toString());
     }
 
     this.activePiece = this.nextPiece;
@@ -185,17 +248,22 @@ export class Game {
     if (!this.board.isValidMove(this.activePiece)) {
       this.gameOver();
     } else {
-      this.renderer.render(this.board, this.activePiece, this.holdPiece, this.nextPiece);
+      this.renderer.render(
+        this.board,
+        this.activePiece,
+        this.holdPiece,
+        this.nextPiece,
+      );
     }
   }
 
   togglePause() {
-    if (this.state === 'PLAYING') {
-      this.state = 'PAUSED';
+    if (this.state === "PLAYING") {
+      this.state = "PAUSED";
       if (this.animationId) cancelAnimationFrame(this.animationId);
       this.notifyUI();
-    } else if (this.state === 'PAUSED') {
-      this.state = 'PLAYING';
+    } else if (this.state === "PAUSED") {
+      this.state = "PLAYING";
       this.lastTime = performance.now();
       this.loop(this.lastTime);
       this.notifyUI();
@@ -203,11 +271,11 @@ export class Game {
   }
 
   gameOver() {
-    this.state = 'GAMEOVER';
+    this.state = "GAMEOVER";
     if (this.animationId) cancelAnimationFrame(this.animationId);
     if (this.score > this.highScore) {
       this.highScore = this.score;
-      localStorage.setItem('tetris_high_score', this.highScore.toString());
+      localStorage.setItem("tetris_high_score", this.highScore.toString());
     }
     this.notifyUI();
   }
@@ -219,7 +287,7 @@ export class Game {
         score: this.score,
         highScore: this.highScore,
         lines: this.lines,
-        level: this.level
+        level: this.level,
       });
     }
   }

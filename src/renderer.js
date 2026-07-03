@@ -1,21 +1,41 @@
-import { COLS, ROWS, BLOCK_SIZE } from './constants';
+import { COLS, ROWS, BLOCK_SIZE } from "./constants";
 
 export class Renderer {
   constructor(gameCanvas, nextCanvas, holdCanvas) {
     this.canvas = gameCanvas;
-    this.ctx = gameCanvas.getContext('2d');
+    this.ctx = gameCanvas.getContext("2d");
     this.nextCanvas = nextCanvas;
-    this.nextCtx = nextCanvas.getContext('2d');
+    this.nextCtx = nextCanvas.getContext("2d");
     this.holdCanvas = holdCanvas;
-    this.holdCtx = holdCanvas.getContext('2d');
+    this.holdCtx = holdCanvas.getContext("2d");
 
-    // Set internal canvas resolutions
-    this.canvas.width = COLS * BLOCK_SIZE;
-    this.canvas.height = ROWS * BLOCK_SIZE;
-    this.nextCanvas.width = 100;
-    this.nextCanvas.height = 100;
-    this.holdCanvas.width = 100;
-    this.holdCanvas.height = 100;
+    const dpr =
+      typeof window !== "undefined" && window.devicePixelRatio
+        ? window.devicePixelRatio
+        : 1;
+
+    // Set CSS display sizes
+    if (this.canvas.style) {
+      this.canvas.style.width = `${COLS * BLOCK_SIZE}px`;
+      this.canvas.style.height = `${ROWS * BLOCK_SIZE}px`;
+      this.nextCanvas.style.width = "100px";
+      this.nextCanvas.style.height = "100px";
+      this.holdCanvas.style.width = "100px";
+      this.holdCanvas.style.height = "100px";
+    }
+
+    // Set internal canvas resolutions scaled by DPR
+    this.canvas.width = Math.floor(COLS * BLOCK_SIZE * dpr);
+    this.canvas.height = Math.floor(ROWS * BLOCK_SIZE * dpr);
+    this.nextCanvas.width = Math.floor(100 * dpr);
+    this.nextCanvas.height = Math.floor(100 * dpr);
+    this.holdCanvas.width = Math.floor(100 * dpr);
+    this.holdCanvas.height = Math.floor(100 * dpr);
+
+    // Scale drawing contexts for retina resolution
+    this.ctx.scale(dpr, dpr);
+    this.nextCtx.scale(dpr, dpr);
+    this.holdCtx.scale(dpr, dpr);
   }
 
   // Draw a styled neon block
@@ -26,11 +46,16 @@ export class Renderer {
 
     ctx.save();
     if (isGhost) {
-      ctx.fillStyle = color + '20'; // 12% opacity fill
-      ctx.strokeStyle = color + '80'; // 50% opacity outline
+      ctx.fillStyle = color + "20"; // 12% opacity fill
+      ctx.strokeStyle = color + "80"; // 50% opacity outline
       ctx.lineWidth = 1;
       ctx.fillRect(px + gap, py + gap, size - gap * 2, size - gap * 2);
-      ctx.strokeRect(px + gap + 0.5, py + gap + 0.5, size - gap * 2 - 1, size - gap * 2 - 1);
+      ctx.strokeRect(
+        px + gap + 0.5,
+        py + gap + 0.5,
+        size - gap * 2 - 1,
+        size - gap * 2 - 1,
+      );
     } else {
       // Glow effect
       ctx.shadowColor = color;
@@ -40,10 +65,20 @@ export class Renderer {
 
       // Inner highlight bevel for 3D glass jewel effect
       ctx.shadowBlur = 0;
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
-      ctx.fillRect(px + gap, py + gap, size - gap * 2, Math.max(2, size * 0.15));
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
-      ctx.fillRect(px + gap, py + size - Math.max(2, size * 0.15) - gap, size - gap * 2, Math.max(2, size * 0.15));
+      ctx.fillStyle = "rgba(255, 255, 255, 0.35)";
+      ctx.fillRect(
+        px + gap,
+        py + gap,
+        size - gap * 2,
+        Math.max(2, size * 0.15),
+      );
+      ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+      ctx.fillRect(
+        px + gap,
+        py + size - Math.max(2, size * 0.15) - gap,
+        size - gap * 2,
+        Math.max(2, size * 0.15),
+      );
     }
     ctx.restore();
   }
@@ -51,7 +86,7 @@ export class Renderer {
   // Draw background grid
   drawGrid() {
     this.ctx.save();
-    this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+    this.ctx.strokeStyle = "rgba(255, 255, 255, 0.04)";
     this.ctx.lineWidth = 1;
     for (let x = 0; x <= COLS; x++) {
       this.ctx.beginPath();
@@ -70,7 +105,7 @@ export class Renderer {
 
   // Draw board blocks
   drawBoard(board) {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.clearRect(0, 0, COLS * BLOCK_SIZE, ROWS * BLOCK_SIZE);
     this.drawGrid();
 
     for (let y = 0; y < ROWS; y++) {
@@ -84,7 +119,14 @@ export class Renderer {
   }
 
   // Draw a piece matrix at given board coordinates
-  drawPiece(ctx, piece, size = BLOCK_SIZE, offsetX = 0, offsetY = 0, isGhost = false) {
+  drawPiece(
+    ctx,
+    piece,
+    size = BLOCK_SIZE,
+    offsetX = 0,
+    offsetY = 0,
+    isGhost = false,
+  ) {
     if (!piece) return;
     for (let y = 0; y < piece.shape.length; y++) {
       for (let x = 0; x < piece.shape[y].length; x++) {
@@ -101,12 +143,15 @@ export class Renderer {
 
   // Draw next or hold piece centered in preview box
   drawPreview(ctx, canvas, piece) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, 100, 100);
     if (!piece) return;
 
     const size = 22; // Smaller block size for preview cards
     // Calculate bounding width & height of piece
-    let minX = piece.shape[0].length, maxX = 0, minY = piece.shape.length, maxY = 0;
+    let minX = piece.shape[0].length,
+      maxX = 0,
+      minY = piece.shape.length,
+      maxY = 0;
     for (let y = 0; y < piece.shape.length; y++) {
       for (let x = 0; x < piece.shape[y].length; x++) {
         if (piece.shape[y][x] > 0) {
@@ -120,14 +165,20 @@ export class Renderer {
 
     const pieceWidth = (maxX - minX + 1) * size;
     const pieceHeight = (maxY - minY + 1) * size;
-    const startX = (canvas.width - pieceWidth) / 2 - minX * size;
-    const startY = (canvas.height - pieceHeight) / 2 - minY * size;
+    const startX = (100 - pieceWidth) / 2 - minX * size;
+    const startY = (100 - pieceHeight) / 2 - minY * size;
 
     ctx.save();
     for (let y = 0; y < piece.shape.length; y++) {
       for (let x = 0; x < piece.shape[y].length; x++) {
         if (piece.shape[y][x] > 0) {
-          this.drawBlock(ctx, (startX + x * size) / size, (startY + y * size) / size, piece.color, size);
+          this.drawBlock(
+            ctx,
+            (startX + x * size) / size,
+            (startY + y * size) / size,
+            piece.color,
+            size,
+          );
         }
       }
     }

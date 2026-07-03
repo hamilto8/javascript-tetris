@@ -1,26 +1,27 @@
-import { Renderer } from './renderer';
-import { Game } from './game';
-import { KEY } from './constants';
+import { Renderer } from "./renderer";
+import { Game } from "./game";
+import { KEY } from "./constants";
+import "./style.css";
 
-document.addEventListener('DOMContentLoaded', () => {
-  const gameCanvas = document.getElementById('game-canvas');
-  const nextCanvas = document.getElementById('next-canvas');
-  const holdCanvas = document.getElementById('hold-canvas');
+document.addEventListener("DOMContentLoaded", () => {
+  const gameCanvas = document.getElementById("game-canvas");
+  const nextCanvas = document.getElementById("next-canvas");
+  const holdCanvas = document.getElementById("hold-canvas");
 
-  const scoreDisplay = document.getElementById('score-display');
-  const highScoreDisplay = document.getElementById('highscore-display');
-  const linesDisplay = document.getElementById('lines-display');
-  const levelDisplay = document.getElementById('level-display');
-  const finalScoreDisplay = document.getElementById('final-score');
+  const scoreDisplay = document.getElementById("score-display");
+  const highScoreDisplay = document.getElementById("highscore-display");
+  const linesDisplay = document.getElementById("lines-display");
+  const levelDisplay = document.getElementById("level-display");
+  const finalScoreDisplay = document.getElementById("final-score");
 
-  const startModal = document.getElementById('start-modal');
-  const pauseModal = document.getElementById('pause-modal');
-  const gameOverModal = document.getElementById('gameover-modal');
+  const startModal = document.getElementById("start-modal");
+  const pauseModal = document.getElementById("pause-modal");
+  const gameOverModal = document.getElementById("gameover-modal");
 
-  const startBtn = document.getElementById('start-btn');
-  const resumeBtn = document.getElementById('resume-btn');
-  const restartBtn = document.getElementById('restart-btn');
-  const playAgainBtn = document.getElementById('play-again-btn');
+  const startBtn = document.getElementById("start-btn");
+  const resumeBtn = document.getElementById("resume-btn");
+  const restartBtn = document.getElementById("restart-btn");
+  const playAgainBtn = document.getElementById("play-again-btn");
 
   const renderer = new Renderer(gameCanvas, nextCanvas, holdCanvas);
 
@@ -31,11 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
     levelDisplay.innerText = level;
 
     // Handle modal overlays
-    startModal.classList.toggle('hidden', state !== 'MENU');
-    pauseModal.classList.toggle('hidden', state !== 'PAUSED');
-    gameOverModal.classList.toggle('hidden', state !== 'GAMEOVER');
+    startModal.classList.toggle("hidden", state !== "MENU");
+    pauseModal.classList.toggle("hidden", state !== "PAUSED");
+    gameOverModal.classList.toggle("hidden", state !== "GAMEOVER");
 
-    if (state === 'GAMEOVER') {
+    if (state === "GAMEOVER") {
       finalScoreDisplay.innerText = score.toLocaleString();
     }
   };
@@ -43,18 +44,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const game = new Game(renderer, onStateChange);
 
   // Bind Buttons
-  startBtn.addEventListener('click', () => game.start());
-  resumeBtn.addEventListener('click', () => game.togglePause());
-  restartBtn.addEventListener('click', () => game.start());
-  playAgainBtn.addEventListener('click', () => game.start());
+  startBtn.addEventListener("click", () => game.start());
+  resumeBtn.addEventListener("click", () => game.togglePause());
+  restartBtn.addEventListener("click", () => game.start());
+  playAgainBtn.addEventListener("click", () => game.start());
 
   // Bind Keyboard Controls
-  document.addEventListener('keydown', (e) => {
-    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space'].includes(e.code)) {
+  document.addEventListener("keydown", (e) => {
+    if (
+      ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"].includes(
+        e.code,
+      )
+    ) {
       e.preventDefault();
     }
 
-    if (game.state === 'PLAYING') {
+    if (game.state === "PLAYING") {
       switch (e.code) {
         case KEY.LEFT:
           game.moveLeft();
@@ -84,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (e.code === KEY.PAUSE || e.code === KEY.PAUSE_ALT) {
-      if (game.state === 'PLAYING' || game.state === 'PAUSED') {
+      if (game.state === "PLAYING" || game.state === "PAUSED") {
         game.togglePause();
       }
     }
@@ -94,23 +99,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const bindTouch = (id, action) => {
     const btn = document.getElementById(id);
     if (!btn) return;
-    btn.addEventListener('touchstart', (e) => {
+    btn.addEventListener("touchstart", (e) => {
       e.preventDefault();
       action();
     });
-    btn.addEventListener('click', (e) => {
+    btn.addEventListener("click", (e) => {
       e.preventDefault();
       action();
     });
   };
 
-  bindTouch('btn-left', () => game.moveLeft());
-  bindTouch('btn-right', () => game.moveRight());
-  bindTouch('btn-down', () => game.softDrop());
-  bindTouch('btn-rotate', () => game.rotate(1));
-  bindTouch('btn-drop', () => game.hardDrop());
-  bindTouch('btn-hold', () => game.hold());
-  bindTouch('btn-pause', () => game.togglePause());
+  bindTouch("btn-left", () => game.moveLeft());
+  bindTouch("btn-right", () => game.moveRight());
+  bindTouch("btn-down", () => game.softDrop());
+  bindTouch("btn-rotate", () => game.rotate(1));
+  bindTouch("btn-drop", () => game.hardDrop());
+  bindTouch("btn-hold", () => game.hold());
+  bindTouch("btn-pause", () => game.togglePause());
+
+  // Auto-pause when user switches browser tab or window loses visibility
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden" && game.state === "PLAYING") {
+      game.togglePause();
+    }
+  });
 
   // Initial draw & UI state
   renderer.render(game.board, null, null, null);

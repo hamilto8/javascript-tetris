@@ -34,22 +34,27 @@ The interface is built to wow at first glance, incorporating:
 
 ## 📂 Project Structure
 
-The project has been organized into a modular, clean, and highly maintainable 5-file architecture:
+The project has been organized into a clean, modular, industry-standard architecture separating source code from compiled build output:
 
 ```
-├── dist/
-│   ├── index.html     # Semantic, SEO-optimized markup, D-pad layout, and modal overlays
-│   ├── style.css      # Dark mode variables, glassmorphic styling, and media queries
-│   └── main.js        # Minified production bundle output (compiled by Webpack)
+├── dist/                # Auto-generated build artifacts (cleanly ignored by git)
+│   ├── index.html       # Compiled SEO-optimized HTML with auto-injected bundles
+│   └── main.[hash].js   # Compiled and minified JS bundle with CSS styles
 ├── src/
-│   ├── constants.js   # Tetrimino shapes, scoring rules, keys, and cyber-color palettes
-│   ├── piece.js       # Piece class managing coordinates, cloning, and matrix rotations
-│   ├── board.js       # Grid logic, collisions, SRS wall kicks, and row clearance
-│   ├── renderer.js    # Canvas rendering loops, neon glows, bevels, grid lines, and previews
-│   ├── game.js        # Controller handling loop timers, states, 7-bag, hold swap, and scores
-│   └── index.js       # Entry point binding DOM events, keyboard inputs, and touch controls
-├── package.json       # Webpack configuration scripts and modern dependencies
-└── webpack.config.js  # Production-ready bundler configuration
+│   ├── index.html       # Source HTML template with accessibility & SEO tags
+│   ├── style.css        # Cyberpunk glassmorphic CSS rules & responsive design
+│   ├── constants.js     # Tetrimino shapes, scoring rules, keys, and cyber-colors
+│   ├── piece.js         # Piece class managing coordinates, cloning, and rotations
+│   ├── board.js         # Grid logic, collisions, SRS wall kicks, and row clearance
+│   ├── renderer.js      # Retina-ready Canvas rendering loops, glows, and previews
+│   ├── game.js          # Controller handling loop timers, states, 7-bag, and scores
+│   └── index.js         # Entry point binding DOM events, keyboard, and touch controls
+├── tests/               # Automated unit test suites (Jest)
+│   ├── board.test.js    # Unit tests for grid collisions, freezing, and line clears
+│   └── piece.test.js    # Unit tests for matrix cloning and SRS rotation logic
+├── eslint.config.js     # ESLint flat configuration for code quality checking
+├── package.json         # Scripts and dev dependencies
+└── webpack.config.js    # Webpack 5 configuration with HtmlWebpackPlugin & CSS loaders
 ```
 
 ---
@@ -68,25 +73,40 @@ Clone the repository and run:
 npm install
 ```
 
-### 2. Development Mode
+### 2. Automated Testing & Code Quality
 
-To run a development watch server that auto-compiles changes in the `src/` directory to `dist/main.js`:
+To execute the Jest automated test suite for game logic:
+
+```bash
+npm test
+```
+
+To run ESLint code linting and Prettier formatting:
+
+```bash
+npm run lint
+npm run format
+```
+
+### 3. Development Mode
+
+To run a development watch server that auto-compiles changes in the `src/` directory:
 
 ```bash
 npm run dev
 ```
 
-### 3. Production Build
+### 4. Production Build
 
-To compile and minify the production bundle:
+To compile, hash, and minify the production bundle to `dist/`:
 
 ```bash
 npm run build
 ```
 
-### 4. Running the Game
+### 5. Running the Game
 
-Simply open [dist/index.html](dist/index.html) directly in any modern web browser or serve it using a local development server like VS Code Live Server or python's `http.server`:
+After building, serve the generated `dist/` directory using a local development server:
 
 ```bash
 npx serve dist

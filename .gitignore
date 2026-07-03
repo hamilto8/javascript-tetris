@@ -101,3 +101,9 @@ typings/
 
 # TernJS port file
 .tern-port
+
+# Build output
+dist/
+
+# OS metadata
+.DS_Store
