@@ -1,17 +1,25 @@
 {
   "name": "javascript-tetris",
   "version": "1.0.0",
-  "description": "A simple Tetris clone made with HTML, CSS and JavaScript",
+  "description": "A modern, responsive, high-quality Tetris web application built with HTML5 Canvas, Vanilla CSS Glassmorphism, and ES6 JavaScript",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "webpack --mode=production",
+    "dev": "webpack --mode=development --watch"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hamilto8/javascript-tetris.git"
   },
-  "keywords": [],
+  "keywords": [
+    "tetris",
+    "javascript",
+    "html5-canvas",
+    "game",
+    "glassmorphism",
+    "responsive"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -19,7 +27,7 @@
   },
   "homepage": "https://github.com/hamilto8/javascript-tetris#readme",
   "devDependencies": {
-    "webpack": "^5.26.3",
-    "webpack-cli": "^4.5.0"
+    "webpack": "^5.108.3",
+    "webpack-cli": "^7.1.0"
   }
 }
