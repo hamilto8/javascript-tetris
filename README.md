@@ -6,6 +6,8 @@
 ![JavaScript](https://img.shields.io/badge/ES6-JavaScript-yellow.svg)
 ![Webpack](https://img.shields.io/badge/Webpack-v5-green.svg)
 
+![JS Tetris Cyber Edition Gameplay Hero Image](assets/hero.png)
+
 A premium, responsive, cyberpunk-themed Tetris clone built using **HTML5 Canvas**, **Vanilla CSS Glassmorphism**, and **ES6 JavaScript**. This application runs at a buttery-smooth 60FPS, features neon-glowing cyber-aesthetics, and includes modern game engine features like hold piece, ghost piece previews, line clear animations, level scaling, and persistent high scores.
 
 ---
